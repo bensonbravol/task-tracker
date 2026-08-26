@@ -1,0 +1,33 @@
+<div class="task-container">
+  <h2>My Tasks</h2>
+
+  <div class="task-card" *ngFor="let task of tasks">
+    <div class="task-content">
+      <h3>{{ task.title }}</h3>
+
+      <span class="status completed" *ngIf="task.completed"> Completed </span>
+
+      <span class="status pending" *ngIf="!task.completed"> Pending </span>
+    </div>
+
+    <div class="task-actions">
+      <button
+        *ngIf="!task.completed"
+        class="btn btn-complete"
+        (click)="markCompleted(task)"
+      >
+        Mark Completed
+      </button>
+
+      <button
+        *ngIf="task.completed"
+        class="btn btn-reopen"
+        (click)="reopenTask(task)"
+      >
+        Reopen
+      </button>
+
+      <button class="btn btn-delete" (click)="deleteTask(task)">Delete</button>
+    </div>
+  </div>
+</div>
