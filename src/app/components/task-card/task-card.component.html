@@ -1,1 +1,84 @@
-<p>task-card works!</p>
+<div class="task-card">
+
+  <div class="task-content">
+
+    <div class="task-header">
+
+      <h3>
+        {{ task.title }}
+      </h3>
+
+      <span
+        class="priority"
+        [ngClass]="'priority-' + task.priority.toLowerCase()"
+      >
+        {{ task.priority }}
+      </span>
+
+    </div>
+
+
+    <p class="description">
+      {{ task.description }}
+    </p>
+
+
+    <p class="created-date">
+      Created on:
+      {{ task.createdAt | date:'medium' }}
+    </p>
+
+      <p style="color: red;">
+    DEBUG: {{ task.createdAt }}
+  </p>
+
+
+    <span
+
+      class="status completed"
+      *ngIf="task.completed"
+    >
+      Completed
+    </span>
+
+
+    <span
+      class="status pending"
+      *ngIf="!task.completed"
+    >
+      Pending
+    </span>
+
+  </div>
+
+
+  <div class="task-actions">
+
+    <button
+      *ngIf="!task.completed"
+      class="btn btn-complete"
+      (click)="markCompleted()"
+    >
+      Mark Completed
+    </button>
+
+
+    <button
+      *ngIf="task.completed"
+      class="btn btn-reopen"
+      (click)="reopenTask()"
+    >
+      Reopen
+    </button>
+
+
+    <button
+      class="btn btn-delete"
+      (click)="deleteTask()"
+    >
+      Delete
+    </button>
+
+  </div>
+
+</div>
