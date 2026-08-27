@@ -1,2 +1,64 @@
-<h1>Task Tracker</h1>
-<app-task-list></app-task-list>
+<div class="app-layout" [class.sidebar-collapsed]="sidebarCollapsed">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <button class="toggle-button" (click)="toggleSidebar()">☰</button>
+
+      <h2 *ngIf="!sidebarCollapsed">Menu</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [title]="sidebarCollapsed ? 'Dashboard' : ''"
+      >
+        <span class="icon">🏠</span>
+
+        <span class="nav-text" *ngIf="!sidebarCollapsed"> Dashboard </span>
+      </a>
+
+      <a
+        routerLink="/tasks"
+        routerLinkActive="active"
+        [title]="sidebarCollapsed ? 'Tasks' : ''"
+      >
+        <span class="icon">📋</span>
+
+        <span class="nav-text" *ngIf="!sidebarCollapsed"> Tasks </span>
+      </a>
+
+      <a
+        routerLink="/add-task"
+        routerLinkActive="active"
+        [title]="sidebarCollapsed ? 'Add Task' : ''"
+      >
+        <span class="icon">➕</span>
+
+        <span class="nav-text" *ngIf="!sidebarCollapsed"> Add Task </span>
+      </a>
+
+      <a
+        routerLink="/my-tasks"
+        routerLinkActive="active"
+        [title]="sidebarCollapsed ? 'My Tasks' : ''"
+      >
+        <span class="icon">👤</span>
+
+        <span class="nav-text" *ngIf="!sidebarCollapsed"> My Tasks </span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Task Tracker</h1>
+
+      <div class="user-info">Welcome</div>
+    </header>
+
+    <section class="page-content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

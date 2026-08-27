@@ -1,0 +1,157 @@
+.task-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.task-container h2 {
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.task-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-height: 180px;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  transition: all 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-color: #0d6efd;
+}
+
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.task-content h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+
+.description {
+  margin: 12px 0;
+
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+.priority {
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+.priority-high {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+
+.priority-medium {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+
+.priority-low {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.status {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.completed {
+  color: #198754;
+}
+
+.pending {
+  color: #d97706;
+}
+
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.btn {
+  border: none;
+  border-radius: 6px;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-complete {
+  background-color: #198754;
+  color: white;
+}
+
+.btn-reopen {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+
+@media (max-width: 900px) {
+  .task-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .task-container {
+    grid-template-columns: 1fr;
+  }
+
+  .task-header {
+    align-items: flex-start;
+  }
+}

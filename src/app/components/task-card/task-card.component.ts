@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { Task } from '../../models/task';
 
 @Component({
@@ -7,8 +8,9 @@ import { Task } from '../../models/task';
   styleUrls: ['./task-card.component.css'],
 })
 export class TaskCardComponent {
-
   @Input() task!: Task;
+
+  @Input() showActions = false;
 
   @Output() completed = new EventEmitter<Task>();
 
@@ -16,19 +18,15 @@ export class TaskCardComponent {
 
   @Output() deleted = new EventEmitter<Task>();
 
-
-  markCompleted() {
+  markCompleted(): void {
     this.completed.emit(this.task);
   }
 
-
-  reopenTask() {
+  reopenTask(): void {
     this.reopened.emit(this.task);
   }
 
-
-  deleteTask() {
+  deleteTask(): void {
     this.deleted.emit(this.task);
   }
-
 }

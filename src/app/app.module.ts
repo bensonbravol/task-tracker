@@ -10,13 +10,21 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { TasksComponent } from './pages/tasks/tasks.component';
+import { AddTaskComponent } from './pages/add-task/add-task.component';
+import { MyTasksComponent } from './pages/my-tasks/my-tasks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskListComponent,
     TaskCardComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    DashboardComponent,
+    TasksComponent,
+    AddTaskComponent,
+    MyTasksComponent
   ],
 
   imports: [

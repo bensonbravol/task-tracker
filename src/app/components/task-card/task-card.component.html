@@ -1,9 +1,6 @@
 <div class="task-card">
-
   <div class="task-content">
-
     <div class="task-header">
-
       <h3>
         {{ task.title }}
       </h3>
@@ -14,46 +11,25 @@
       >
         {{ task.priority }}
       </span>
-
     </div>
-
 
     <p class="description">
       {{ task.description }}
     </p>
 
-
     <p class="created-date">
       Created on:
-      {{ task.createdAt | date:'medium' }}
+      {{ task.createdAt | date: "medium" }}
     </p>
 
-      <p style="color: red;">
-    DEBUG: {{ task.createdAt }}
-  </p>
+    <div class="status">
+      <span *ngIf="task.completed" class="completed"> Completed </span>
 
-
-    <span
-
-      class="status completed"
-      *ngIf="task.completed"
-    >
-      Completed
-    </span>
-
-
-    <span
-      class="status pending"
-      *ngIf="!task.completed"
-    >
-      Pending
-    </span>
-
+      <span *ngIf="!task.completed" class="pending"> Pending </span>
+    </div>
   </div>
 
-
-  <div class="task-actions">
-
+  <div class="task-actions" *ngIf="showActions">
     <button
       *ngIf="!task.completed"
       class="btn btn-complete"
@@ -61,7 +37,6 @@
     >
       Mark Completed
     </button>
-
 
     <button
       *ngIf="task.completed"
@@ -71,14 +46,6 @@
       Reopen
     </button>
 
-
-    <button
-      class="btn btn-delete"
-      (click)="deleteTask()"
-    >
-      Delete
-    </button>
-
+    <button class="btn btn-delete" (click)="deleteTask()">Delete</button>
   </div>
-
 </div>

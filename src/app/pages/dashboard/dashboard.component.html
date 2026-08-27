@@ -1,0 +1,172 @@
+<div class="dashboard">
+
+  <div class="dashboard-header">
+    <div>
+      <h2>Dashboard</h2>
+
+      <p>Overview of your task activity</p>
+    </div>
+  </div>
+
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon total">📋</div>
+
+      <div>
+        <p>Total Tasks</p>
+        <h3>{{ totalTasks }}</h3>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon pending">⏳</div>
+
+      <div>
+        <p>Pending</p>
+        <h3>{{ pendingTasks }}</h3>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon completed">✓</div>
+
+      <div>
+        <p>Completed</p>
+        <h3>{{ completedTasks }}</h3>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon high">🔴</div>
+
+      <div>
+        <p>High Priority</p>
+        <h3>{{ highPriorityTasks }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+
+
+    <div class="dashboard-card">
+      <h3>Task Status</h3>
+
+      <p class="card-description">Completed versus pending tasks</p>
+
+      <div class="chart-container">
+        <div class="pie-placeholder" *ngFor="let item of statusChartData">
+          <strong>
+            {{ item.status }}
+          </strong>
+
+          <span>
+            {{ item.count }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="dashboard-card">
+      <h3>Tasks by Priority</h3>
+
+      <p class="card-description">Number of tasks in each priority level</p>
+
+      <div class="priority-bars">
+        <div class="priority-row" *ngFor="let item of priorityChartData">
+          <div class="priority-label">
+            <span>
+              {{ item.priority }}
+            </span>
+
+            <strong>
+              {{ item.count }}
+            </strong>
+          </div>
+
+          <div class="bar-background">
+            <div
+              class="bar"
+              [style.width.%]="
+                totalTasks > 0 ? (item.count / totalTasks) * 100 : 0
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-card task-table-card">
+    <div class="table-header">
+      <div>
+        <h3>Recent Tasks</h3>
+
+        <p class="card-description">Tasks currently in your database</p>
+      </div>
+
+      <span class="task-count"> {{ totalTasks }} Tasks </span>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Task</th>
+
+            <th>Description</th>
+
+            <th>Priority</th>
+
+            <th>Status</th>
+
+            <th>Created</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let task of tasks">
+            <td class="task-title">
+              {{ task.title }}
+            </td>
+
+            <td>
+              {{ task.description }}
+            </td>
+
+            <td>
+              <span
+                class="priority"
+                [ngClass]="'priority-' + task.priority.toLowerCase()"
+              >
+                {{ task.priority }}
+              </span>
+            </td>
+
+            <td>
+              <span *ngIf="task.completed" class="status completed">
+                Completed
+              </span>
+
+              <span *ngIf="!task.completed" class="status pending">
+                Pending
+              </span>
+            </td>
+
+            <td>
+              {{ task.createdAt | date: "medium" }}
+            </td>
+          </tr>
+
+          <!-- NO TASKS -->
+
+          <tr *ngIf="tasks.length === 0">
+            <td colspan="5" class="no-tasks">No tasks found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
