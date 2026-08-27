@@ -1,0 +1,22 @@
+<div class="my-tasks-page">
+  <div class="tasks-header">
+    <div>
+      <h2>Manage your tasks</h2>
+    </div>
+  </div>
+
+  <div class="task-container">
+    <app-task-card
+      *ngFor="let task of tasks"
+      [task]="task"
+      [showActions]="true"
+      (completed)="markCompleted($event)"
+      (reopened)="reopenTask($event)"
+      (deleted)="deleteTask($event)"
+    >
+    </app-task-card>
+
+    <div class="empty-state" *ngIf="tasks.length === 0">
+    </div>
+  </div>
+</div>

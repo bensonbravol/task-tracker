@@ -1,44 +1,102 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+import { Task } from '../../models/task';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
 })
-export class TaskListComponent {
-  tasks: Task[] = [
-    {
-      id: 1,
-      title: 'Learn Angular components',
+export class TaskListComponent implements OnInit {
+  tasks: Task[] = [];
+
+  constructor(private taskService: TaskService) {}
+
+  ngOnInit(): void {
+    this.loadTasks();
+  }
+
+
+  loadTasks(): void {
+    this.taskService.getTasks().subscribe({
+      next: (tasks) => {
+        console.log('Tasks received:', tasks);
+        console.log('First task:', tasks[0]);
+        console.log('CreatedAt:', tasks[0]?.createdAt);
+
+        this.tasks = tasks;
+      },
+
+      error: (error) => {
+        console.error('Failed to load tasks:', error);
+      },
+    });
+  }
+
+  addTask(task: Omit<Task, 'id' | 'completed' | 'createdAt'>): void {
+    this.taskService.addTask(task).subscribe({
+      next: (newTask) => {
+        this.tasks.push(newTask);
+      },
+
+      error: (error) => {
+        console.error('Failed to add task:', error);
+      },
+    });
+  }
+
+  markCompleted(task: Task): void {
+    const updatedTask: Task = {
+      ...task,
       completed: true,
-    },
-    {
-      id: 2,
-      title: 'Learn Angular forms',
-      completed: false,
-    },
-    {
-      id: 3,
-      title: 'Learn Angular services',
-      completed: false,
-    },
-  ];
+    };
 
-  markCompleted(task: Task) {
-    task.completed = true;
+    this.taskService.updateTask(updatedTask).subscribe({
+      next: (updated) => {
+        const index = this.tasks.findIndex((t) => t.id === updated.id);
+
+        if (index !== -1) {
+          this.tasks[index] = updated;
+        }
+      },
+
+      error: (error) => {
+        console.error('Failed to complete task:', error);
+      },
+    });
   }
 
-  reopenTask(task: Task) {
-    task.completed = false;
+  reopenTask(task: Task): void {
+    const updatedTask: Task = {
+      ...task,
+      completed: false,
+    };
+
+    this.taskService.updateTask(updatedTask).subscribe({
+      next: (updated) => {
+        const index = this.tasks.findIndex((t) => t.id === updated.id);
+
+        if (index !== -1) {
+          this.tasks[index] = updated;
+        }
+      },
+
+      error: (error) => {
+        console.error('Failed to reopen task:', error);
+      },
+    });
   }
 
-  deleteTask(task: Task) {
-    this.tasks = this.tasks.filter((t) => t.id !== task.id);
+  deleteTask(task: Task): void {
+    this.taskService.deleteTask(task.id).subscribe({
+      next: () => {
+        this.tasks = this.tasks.filter((t) => t.id !== task.id);
+      },
+
+      error: (error) => {
+        console.error('Failed to delete task:', error);
+      },
+    });
   }
 }

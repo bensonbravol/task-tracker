@@ -1,0 +1,11 @@
+<div class="tasks-page">
+  <div class="tasks-header">
+    <div>
+      <h2>Tasks</h2>
+    </div>
+  </div>
+
+  <div class="task-container">
+    <app-task-card *ngFor="let task of tasks" [task]="task"> </app-task-card>
+  </div>
+</div>
